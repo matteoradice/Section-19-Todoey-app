@@ -24,10 +24,10 @@ class TodoListViewController: UITableViewController {
         newItem3.title = "Destroy Demogorgon"
         itemArray.append(newItem3)
         
-        // if let items = defaults.array(forKey: K.defaultKeys.toDoList) as? [String] {
-        //     itemArray = items
+        if let items = defaults.array(forKey: K.defaultKeys.toDoList) as? [Item] {
+        itemArray = items
     }
-    
+    }
     
     // MARK - Add new items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
