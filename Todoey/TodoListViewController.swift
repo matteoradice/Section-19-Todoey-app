@@ -7,8 +7,13 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
     
+    var defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let items = defaults.array(forKey: K.defaultKeys.toDoList) as? [String] {
+            itemArray = items
+        }
     }
     
     // MARK - Add new items
@@ -19,6 +24,8 @@ class TodoListViewController: UITableViewController {
             // what will happen once the user clicks the add item button on UIAlert
             // Missing a code piece to prevent empty input in the textfield by the user
             self.itemArray.append(textField.text!)
+            // Copio in defaults i valori dell'array
+            self.defaults.set(self.itemArray, forKey: K.defaultKeys.toDoList)
             self.tableView.reloadData()
         }
         
