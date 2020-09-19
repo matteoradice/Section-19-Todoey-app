@@ -5,16 +5,31 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray = [Item]()
     
     var defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let items = defaults.array(forKey: K.defaultKeys.toDoList) as? [String] {
-            itemArray = items
+        
+        let newItem = Item()
+        newItem.title = "Find Mike"
+        itemArray.append(newItem)
+
+        let newItem2 = Item()
+        newItem.title = "Buy Eggos"
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item()
+        newItem.title = "Destroy Demogorgon"
+        itemArray.append(newItem3)
+        
+        print("ITemarray \(itemArray)")
+        
+        // if let items = defaults.array(forKey: K.defaultKeys.toDoList) as? [String] {
+        //     itemArray = items
         }
-    }
+    
     
     // MARK - Add new items
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -23,7 +38,10 @@ class TodoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add item", style: .default) { (action) in
             // what will happen once the user clicks the add item button on UIAlert
             // Missing a code piece to prevent empty input in the textfield by the user
-            self.itemArray.append(textField.text!)
+            
+            let newItem = Item()
+            newItem.title = textField.text!
+            self.itemArray.append(newItem)
             // Copio in defaults i valori dell'array
             self.defaults.set(self.itemArray, forKey: K.defaultKeys.toDoList)
             self.tableView.reloadData()
@@ -50,7 +68,7 @@ extension TodoListViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cells.itemCell, for: indexPath)
-        cell.textLabel!.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
         return cell
     }
 }
