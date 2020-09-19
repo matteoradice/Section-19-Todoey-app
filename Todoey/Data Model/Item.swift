@@ -10,5 +10,5 @@ import Foundation
 
 class Item {
     var title:String = ""
-    var check:Bool = false
+    var done:Bool = false
 }
